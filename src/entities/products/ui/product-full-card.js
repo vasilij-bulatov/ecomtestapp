@@ -14,7 +14,7 @@ export function ProductFullCard({product}) {
         <Chip type="outline">
           <Text
             style={styles.textDiscount}
-            h5>{`Скидка ${product?.discountPercentage}%`}</Text>
+            h6>{`Скидка ${product?.discountPercentage}%`}</Text>
         </Chip>
         <Text h6>{`Осталось ${product?.stock} шт`}</Text>
       </View>

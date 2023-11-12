@@ -28,10 +28,10 @@ async function getPersistentAuthData() {
 }
 
 async function logIn(login, password) {
-  console.log(password);
   const url = `${BASE_URL}login`;
   const body = {username: login, password: password};
-  console.log(body);
+  const tag = 'Login ';
+
   return axios
     .post(url, body, {headers: {'Content-Type': 'application/json'}})
     .then(response => response.data)
@@ -43,7 +43,7 @@ async function logIn(login, password) {
       return response;
     })
     .catch(error => {
-      const tag = 'Failed login ';
+      
       if (error.response) {
         console.log(tag, error.response.data);
         console.log(tag, error.response.status);
@@ -67,6 +67,7 @@ async function logOut() {
 }
 
 async function getUserData(id, token) {
+  console.log('get user data ',id,  token,);
   const url = `${BASE_URL}users/${id}`;
   return axios
     .get(url, {

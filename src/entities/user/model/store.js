@@ -76,7 +76,7 @@ const userSlice = createSlice({
       })
       .addCase(getUserData.rejected, state => {
         state.error = 'ERROR';
-        state.isLoad = true;
+        state.isLoad = false;
       });
   },
 });

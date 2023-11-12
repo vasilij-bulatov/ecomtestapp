@@ -2,9 +2,13 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Card, Text, Image, Button, Chip} from '@rneui/themed';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {useCartActions, Counter} from '../../../features/cart-actions';
 
 export function ProductCard({product}) {
   const navigation = useNavigation();
+  const {addProduct, isProductInCart} = useCartActions();
+  const showCounter = isProductInCart(product);
+  const onPress = () => addProduct(product);
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('Product', {product: product})}>
@@ -14,7 +18,7 @@ export function ProductCard({product}) {
           <Text style={styles.textPrice} h3>
             {product?.price + '$'}
           </Text>
-          <Chip type='outline'>
+          <Chip type="outline">
             <Text
               style={styles.textDiscount}
               h5>{`Скидка ${product?.discountPercentage}%`}</Text>
@@ -26,7 +30,13 @@ export function ProductCard({product}) {
           <Text style={styles.textTitle} h2>
             {product?.title}
           </Text>
-          <Button size="lg" title={'В корзину'} />
+          <View style={{height: 50, justifyContent: 'center'}}>
+            {showCounter ? (
+              <Counter product={product}/>
+            ) : (
+              <Button size="lg" title={'В корзину'} onPress={onPress} />
+            )}
+          </View>
         </View>
       </Card>
     </TouchableOpacity>

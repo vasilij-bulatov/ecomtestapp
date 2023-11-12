@@ -8,17 +8,19 @@ import {ImagesCarousel} from '../../widgets/image-carousel';
 
 import {ProductFullCard} from '../../entities/products';
 
+import {capitalizeFirstLetter} from '../../shared';
+
 export function ProductScreen({route}) {
   const product = route.params?.product;
   return (
     <>
-      <Header arrowBackEnable={true} />
+      <Header arrowBackEnable={true} title={capitalizeFirstLetter(product.category)} />
       <SafeAreaView style={styles.container}>
         <ScrollView contentContainerStyle={{flex: 1}}>
           <ImagesCarousel images={product.images} />
           <ProductFullCard product={product} />
         </ScrollView>
-        <FAB style={styles.buttonAddToCart} title={'Добавить в корзину'}/>
+        <FAB style={styles.buttonAddToCart} title={'Добавить в корзину'} />
       </SafeAreaView>
     </>
   );

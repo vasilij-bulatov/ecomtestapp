@@ -1,10 +1,16 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Image} from '@rneui/themed';
+
 import { LoginForm } from '../../widgets/login-form';
 
+import { useGetUserEffect, useUserState } from '../../entities/user';
+
 export function AuthScreen() {
+  const {isLoad} = useUserState();
+  useGetUserEffect(isLoad);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.viewContainer}>

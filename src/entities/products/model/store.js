@@ -41,7 +41,7 @@ const productsSlice = createSlice({
       } else {
         state.data = [];
         state.error = "No products getted";
-        state.isLoad = true;
+        state.isLoad = false;
       }
     });
   },
