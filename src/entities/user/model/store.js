@@ -12,7 +12,6 @@ export const logOut = createAsyncThunk('logout', async () => {
 });
 
 export const logIn = createAsyncThunk('login', async (authData) => {
-  console.log('thunk ', authData);
   const response = await api.logIn(authData.login, authData.password);
   return response;
 });
@@ -67,7 +66,7 @@ const userSlice = createSlice({
       })
       .addCase(getUserData.fulfilled, (state, action) => {
         if (action.payload?.id) {
-          state.user = action.payload;
+          state.data = action.payload;
           state.isLogged = true;
           state.error = null;
         } else {

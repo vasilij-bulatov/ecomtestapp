@@ -19,6 +19,7 @@ export function useGetUserEffect(isLoad) {
     if (!isLoad) {
       //dispatch(getUserData(1));
       api.getPersistentAuthData().then(authData => {
+        console.log('get pers authdata ', authData);
         if (authData.id && authData.token) {
           dispatch(getUserData({id: authData.id, token: authData.token}));
           dispatch(setToken(authData.token));

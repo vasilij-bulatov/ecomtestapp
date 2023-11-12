@@ -14,6 +14,7 @@ import { AuthScreen } from '../pages/auth';
 import { HomeScreen } from '../pages/home';
 import { CartScreen } from '../pages/cart';
 import { ProfileScreen } from '../pages/profile';
+import { ProductScreen } from '../pages/product';
 
 const TabBar = createBottomTabNavigator();
 
@@ -39,7 +40,7 @@ function TabBarComponent() {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarLabel: ' Главная',
+          tabBarLabel: 'Главная',
           tabBarIcon: ({color, size}) => (
             <AntDesign name="home" color={color} size={size} />
           ),
@@ -78,8 +79,9 @@ export function Routing() {
         }}>
         {isLogged ? (
           <>
-            <AuthStack.Screen name={'Home'} component={TabBarComponent} />
+            <AuthStack.Screen name={'TabBar'} component={TabBarComponent} />
             <AuthStack.Screen name={'Cart'} component={CartScreen} />
+            <AuthStack.Screen name={'Product'} component={ProductScreen} />
           </>
         ) : (
           <>

@@ -1,8 +1,10 @@
 import {configureStore, combineReducers} from '@reduxjs/toolkit';
 import { userReducer } from '../entities/user';
+import { productsReducer } from '../entities/products';
 
 const combinedReducers = combineReducers({
   user: userReducer,
+  products: productsReducer,
 });
 
 const rootReducer = (state, action) => {

@@ -92,4 +92,27 @@ async function getUserData(id, token) {
     });
 }
 
-export const api = {logIn, logOut, getUserData, getPersistentAuthData};
+async function getProducts(token) {
+  console.log('token ',token);
+  const url = `${BASE_URL}products?limit=0`;
+  return axios
+    .get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => response.data)
+    .then(response => {
+      console.log(response);
+      return response;
+    })
+    .catch(e => {
+      if (e.name === 'AbortError') {
+        return responseTimeout;
+      }
+      console.log('Failed get products:', e);
+    });
+}
+
+export const api = {logIn, logOut, getUserData, getPersistentAuthData, getProducts};
