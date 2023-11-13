@@ -19,12 +19,3 @@ export function useGetProductsEffect(isLoad, token) {
   }, [isLoad, token]);
 }
 
-export function useUpdateProductsFocusEffect() {
-  const dispatch = useDispatch();
-  const isFocused = useIsFocused();
-  return useEffect(() => {
-    if (isFocused) {
-      dispatch(getProducts());
-    }
-  }, [isFocused]);
-}

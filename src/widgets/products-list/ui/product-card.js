@@ -1,5 +1,5 @@
-import React from 'react';
-import {useNavigation, useFocusEffect} from '@react-navigation/native';
+import React, {useEffect} from 'react';
+import {useNavigation, useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {Card, Text, Image, Button, Chip} from '@rneui/themed';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {
@@ -10,16 +10,27 @@ import {
 
 export function ProductCard({product}) {
   const navigation = useNavigation();
-  const {addProduct, isProductInCart} = useCartActions();
+  const {addProduct, isProductInCart, getProductQuantity} = useCartActions();
   const showCounter = isProductInCart(product);
   const onPress = () => {
     addProduct(product);
   };
-  const quantity = useProductQuantity(product);
+  const [quantity, setQuantity] = React.useState(useProductQuantity(product));
+  const isFocused = useIsFocused();
+  const [crutch, setCrutch] = React.useState(true);
+
+  useEffect(()  => {
+    if (isFocused) {
+      setQuantity(getProductQuantity(product));
+      setCrutch(true);
+    }
+  }, [isFocused]);
   
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('Product', {product: product})}>
+      onPress={() => {
+        setCrutch(false);
+        navigation.navigate('Product', {product: product});}}>
       <Card>
         <Image source={{uri: product.thumbnail}} style={styles.image} />
         <View style={styles.viewContainer}>
@@ -39,11 +50,11 @@ export function ProductCard({product}) {
             {product?.title}
           </Text>
           <View style={{height: 50, justifyContent: 'center'}}>
-            {showCounter ? (
+            {crutch && (showCounter ?  (
               <Counter product={product} start={quantity} />
             ) : (
               <Button size="lg" title={'В корзину'} onPress={onPress} />
-            )}
+            ))}
           </View>
         </View>
       </Card>

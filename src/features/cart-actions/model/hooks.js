@@ -5,7 +5,7 @@ import {cartActions} from '../../../entities/cart';
 
 export function useCartActions() {
   const dispatch = useDispatch();
-  //const {products} = useSelector(state => state.cart);
+  const state = useSelector(state => state.cart);
 
   const addProduct = product => {
     const addedItem = {
@@ -31,11 +31,18 @@ export function useCartActions() {
     return products.filter(item => item.id == product.id).length > 0;
   };
 
+  const getProductQuantity = product => {
+    const quantity = state.products.filter(item => item.id == product.id)[0]?.quantity > 0
+    ? state.products.filter(item => item.id == product.id)[0]?.quantity
+    : 1;
+    return quantity;
+  };
+
   const removeAllProducts = () => {
     dispatch(cartActions.clearCart());
   };
 
-  return {addProduct, removeProduct, isProductInCart, removeAllProducts};
+  return {addProduct, removeProduct, isProductInCart, removeAllProducts, getProductQuantity};
 }
 
 export function useProductQuantity(product) {

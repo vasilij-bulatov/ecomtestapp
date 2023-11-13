@@ -1,6 +1,5 @@
 import React from 'react';
 import {FlashList} from '@shopify/flash-list';
-import {useFocusEffect} from '@react-navigation/native';
 
 import {ProductCard} from './product-card';
 

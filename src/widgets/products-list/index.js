@@ -9,7 +9,6 @@ import {
 import {
   useGetProductsEffect,
   useProductsState,
-  useUpdateProductsFocusEffect,
 } from '../../entities/products';
 import {useUserState} from '../../entities/user';
 
@@ -21,8 +20,6 @@ export function ProductsListWidget() {
   const {token} = useUserState();
 
   useGetProductsEffect(isLoad, token);
-
-  useUpdateProductsFocusEffect();
 
   if (!isLoad) {
     return <ActivityIndicator />;
