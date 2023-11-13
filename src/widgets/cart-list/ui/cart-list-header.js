@@ -17,7 +17,7 @@ export function CartListHeader() {
   return (
     <Card>
       <View flexDirection={'row'}>
-        <View style={{width: '90%', marginEnd: 8}}>
+        <View style={{width: !!total ? '90%' : '100%', marginEnd: 8}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text h4>{STRINGS.total}</Text>
             <Text h4>{total.toFixed(2) + '$'}</Text>
@@ -27,9 +27,11 @@ export function CartListHeader() {
             <Text h5>{quantity + ' шт'}</Text>
           </View>
         </View>
-        <TouchableOpacity onPress={removeAllProducts}>
-          <FontAwesome name={'trash'} size={40} color={theme.colors.error} />
-        </TouchableOpacity>
+        {!!total && (
+          <TouchableOpacity onPress={removeAllProducts}>
+            <FontAwesome name={'trash'} size={40} color={theme.colors.error} />
+          </TouchableOpacity>
+        )}
       </View>
     </Card>
   );

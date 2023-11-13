@@ -3,13 +3,13 @@ import {api} from '../../../shared';
 
 export const getProducts = createAsyncThunk('getProducts', async (token) => {
   const response = await api.getProducts(token);
-  //response.metaData = groupCode;
   return response;
 });
 
 const initialState = {
   data: [],
   isLoad: false,
+  isPending: false,
   error: null,
 };
 
@@ -17,31 +17,31 @@ const productsSlice = createSlice({
   name: 'products',
   initialState: initialState,
   reducers: {
-    /*setSelectedTasksGroup(state, action) {
-      state.selectedTasksGroup = action.payload;
-    },*/
     setIsLoad(state, action) {
       state.isLoad = action.payload;
     },
   },
   extraReducers: builder => {
+    builder.addCase(getProducts.pending, state => {
+      state.isPending = true;
+    });
     builder.addCase(getProducts.rejected, state => {
-      state.data = [];
+      //state.data = [];
       state.error = 'Failed get products';
       state.isLoad = true;
+      state.isPending = false;
     });
     builder.addCase(getProducts.fulfilled, (state, action) => {
-      //console.log('store fullfill get pr ', action);
       if (action.payload?.products) {
-        //if (action.payload.metaData === state.selectedTasksGroup) {
         state.data = action.payload.products;
         state.isLoad = true;
         state.errorCode = null;
-        //}
+        state.isPending = false;
       } else {
         state.data = [];
         state.error = "No products getted";
         state.isLoad = false;
+        state.isPending = false;
       }
     });
   },

@@ -2,12 +2,6 @@ import {createSlice, createAsyncThunk, current} from '@reduxjs/toolkit';
 import {api} from '../../../shared';
 import {getTotal} from './lib';
 
-/*export const getProducts = createAsyncThunk('getProducts', async (token) => {
-  const response = await api.getProducts(token);
-  //response.metaData = groupCode;
-  return response;
-});*/
-
 const initialState = {
   products: [],
   quantity: 0,
@@ -81,27 +75,6 @@ const cartSlice = createSlice({
       state.total = 0;
     },
   },
-  /*extraReducers: builder => {
-    builder.addCase(getProducts.rejected, state => {
-      state.data = [];
-      state.error = 'Failed get products';
-      state.isLoad = true;
-    });
-    builder.addCase(getProducts.fulfilled, (state, action) => {
-      //console.log('store fullfill get pr ', action);
-      if (action.payload?.products) {
-        //if (action.payload.metaData === state.selectedTasksGroup) {
-        state.data = action.payload.products;
-        state.isLoad = true;
-        state.errorCode = null;
-        //}
-      } else {
-        state.data = [];
-        state.error = "No products getted";
-        state.isLoad = false;
-      }
-    });
-  },*/
 });
 
 export const cartActions = cartSlice.actions;

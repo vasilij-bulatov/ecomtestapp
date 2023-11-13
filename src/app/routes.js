@@ -6,8 +6,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {useWindowDimensions, Platform, useColorScheme} from 'react-native';
 import {useGetUserEffect, useUserState, } from '../entities/user';
-//import RNBootSplash from "react-native-bootsplash";
-import { useEffect } from 'react';
 import { theme } from './styles';
 
 import { AuthScreen } from '../pages/auth';
@@ -15,6 +13,7 @@ import { HomeScreen } from '../pages/home';
 import { CartScreen } from '../pages/cart';
 import { ProfileScreen } from '../pages/profile';
 import { ProductScreen } from '../pages/product';
+import { PaymentScreen } from '../pages/payment';
 
 const TabBar = createBottomTabNavigator();
 
@@ -30,7 +29,7 @@ function TabBarComponent() {
         tabBarStyle: {
           backgroundColor: mode == 'light' ? theme.lightColors.primary : theme.darkColors.primary,
           height: Platform.OS == 'ios' ? 70 : 48,
-          paddingBottom: 12,
+          paddingBottom: Platform.OS == 'ios' ? 12 : 2,
         },
         tabBarActiveTintColor: theme.lightColors.white,
         tabBarInactiveTintColor: mode == 'light' ? theme.lightColors.grey0 : theme.darkColors.grey0,
@@ -64,13 +63,6 @@ export function Routing() {
   const {isLogged, isLoad} = useUserState();
   useGetUserEffect(isLoad);
 
-  /*useEffect(() => {
-    if (isLoad) {
-      RNBootSplash.hide({ fade: true, duration: 500 });
-    }
-  },[isLoad]);*/
-  //const isLogged = false;
-
   return (
     <>
       <AuthStack.Navigator
@@ -82,6 +74,7 @@ export function Routing() {
             <AuthStack.Screen name={'TabBar'} component={TabBarComponent} />
             <AuthStack.Screen name={'Cart'} component={CartScreen} />
             <AuthStack.Screen name={'Product'} component={ProductScreen} />
+            <AuthStack.Screen name={'Payment'} component={PaymentScreen} />
           </>
         ) : (
           <>

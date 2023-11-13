@@ -43,7 +43,6 @@ async function logIn(login, password) {
       return response;
     })
     .catch(error => {
-      
       if (error.response) {
         console.log(tag, error.response.data);
         console.log(tag, error.response.status);
@@ -67,7 +66,7 @@ async function logOut() {
 }
 
 async function getUserData(id, token) {
-  console.log('get user data ',id,  token,);
+  console.log('get user data ', id, token);
   const url = `${BASE_URL}users/${id}`;
   return axios
     .get(url, {
@@ -94,7 +93,6 @@ async function getUserData(id, token) {
 }
 
 async function getProducts(token) {
-  console.log('token ',token);
   const url = `${BASE_URL}products?limit=0`;
   return axios
     .get(url, {
@@ -116,4 +114,76 @@ async function getProducts(token) {
     });
 }
 
-export const api = {logIn, logOut, getUserData, getPersistentAuthData, getProducts};
+async function getCategories() {
+  const tag = 'Get categories ';
+  const url = `${BASE_URL_TEST}products/categories`;
+  return axios
+    .get(url)
+    .then(response => response.data)
+    .then(response => {
+      //console.log(response);
+      return response;
+    })
+    .catch(error => {
+      if (error.response) {
+        console.log(tag, error.response.data);
+        console.log(tag, error.response.status);
+        console.log(tag, error.response.headers);
+      } else if (error.request) {
+        console.log(tag, error.request);
+      } else {
+        console.log(tag, error.message);
+      }
+    });
+}
+
+async function getProductsByCategories(categories) {
+  try {
+    let urls = [];
+    for (let category of categories) {
+      urls.push(`${BASE_URL_TEST}products/category/${category}?limit=10`);
+    }
+    return Promise.all(urls.map(url => axios.get(url)))
+      .then(responses => {
+        let result = [];
+        responses.forEach(response => result.push(response.data.products));
+        return result.flat();
+      })
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function searchProducts(query) {
+  const tag = 'Search ';
+  const url = `${BASE_URL_TEST}products/search?q=${query}`;
+  return axios
+    .get(url)
+    .then(response => response.data)
+    .then(response => {
+      //console.log(response);
+      return response;
+    })
+    .catch(error => {
+      if (error.response) {
+        console.log(tag, error.response.data);
+        console.log(tag, error.response.status);
+        console.log(tag, error.response.headers);
+      } else if (error.request) {
+        console.log(tag, error.request);
+      } else {
+        console.log(tag, error.message);
+      }
+    });
+}
+
+export const api = {
+  logIn,
+  logOut,
+  getUserData,
+  getPersistentAuthData,
+  getProducts,
+  getCategories,
+  getProductsByCategories,
+  searchProducts,
+};

@@ -2,11 +2,15 @@ import {configureStore, combineReducers} from '@reduxjs/toolkit';
 import { userReducer } from '../entities/user';
 import { productsReducer } from '../entities/products';
 import { cartReducer } from '../entities/cart';
+import { filterReducer } from '../features/filter-products';
+import { searchReducer } from '../features/search-products';
 
 const combinedReducers = combineReducers({
   user: userReducer,
   products: productsReducer,
   cart: cartReducer,
+  filter: filterReducer,
+  search: searchReducer,
 });
 
 const rootReducer = (state, action) => {

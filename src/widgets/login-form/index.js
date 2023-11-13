@@ -3,6 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {useFormik} from 'formik';
 import {Input, Button} from '@rneui/themed';
 import {useChangeAuthState} from '../../features/change-auth-state';
+import { useUserState } from '../../entities/user';
 
 export function LoginForm() {
   const STRINGS = {
@@ -12,6 +13,7 @@ export function LoginForm() {
   };
 
   const {logIn, isLogInPending} = useChangeAuthState();
+  const {setIsLoad} = useUserState();
 
   const formik = useFormik({
     initialValues: {
@@ -19,8 +21,9 @@ export function LoginForm() {
       password: '',
     },
     onSubmit: values => {
-      console.log(values);
-      logIn(values.login, values.password);
+      logIn(values.login, values.password).then(() => {
+        setIsLoad(false);
+      });
     },
   });
   return (

@@ -38,6 +38,9 @@ const userSlice = createSlice({
     setToken(state, action) {
       state.token = action.payload;
     },
+    setIsLoad(state, action) {
+      state.isLoad = action.payload;
+    },
   },
   extraReducers: builder => {
     builder
@@ -81,6 +84,6 @@ const userSlice = createSlice({
   },
 });
 
-export const {setInitialState, setToken} = userSlice.actions;
+export const {setInitialState, setToken, setIsLoad} = userSlice.actions;
 
 export const userReducer = userSlice.reducer;

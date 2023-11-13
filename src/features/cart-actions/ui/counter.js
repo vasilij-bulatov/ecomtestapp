@@ -5,7 +5,6 @@ import {useTheme} from '@rneui/themed';
 export function CounterButton({start, onPlus, onMinus}) {
   const {theme} = useTheme();
   const onChange = (number, type) => {
-    console.log(number, type);
     switch (type) {
       case '+':
         onPlus();

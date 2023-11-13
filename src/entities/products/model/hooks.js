@@ -1,6 +1,8 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {getProducts} from './store';
+
+import {getProducts, productsActions} from './store';
 
 export function useProductsState() {
   const productsState = useSelector(state => state.products);
@@ -15,4 +17,14 @@ export function useGetProductsEffect(isLoad, token) {
     }
     return () => {};
   }, [isLoad, token]);
+}
+
+export function useUpdateProductsFocusEffect() {
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+  return useEffect(() => {
+    if (isFocused) {
+      dispatch(getProducts());
+    }
+  }, [isFocused]);
 }

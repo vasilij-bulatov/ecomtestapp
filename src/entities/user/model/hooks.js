@@ -5,12 +5,17 @@ import {
   logOut as _logOut,
   logIn as _logIn,
   setToken,
+  setIsLoad as _setIsLoad,
 } from './store';
 import { api } from "../../../shared";
 
 export function useUserState() {
   const state = useSelector(state => state.user);
-  return state;
+  const dispatch = useDispatch();
+  const setIsLoad = (value) => {
+    dispatch(_setIsLoad(value));
+  }
+  return {...state, setIsLoad};
 }
 
 export function useGetUserEffect(isLoad) {
