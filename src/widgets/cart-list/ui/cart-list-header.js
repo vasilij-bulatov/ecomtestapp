@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Card, Text, useTheme} from '@rneui/themed';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -18,11 +18,11 @@ export function CartListHeader() {
     <Card>
       <View flexDirection={'row'}>
         <View style={{width: !!total ? '90%' : '100%', marginEnd: 8}}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={styles.viewLine}>
             <Text h4>{STRINGS.total}</Text>
             <Text h4>{total.toFixed(2) + '$'}</Text>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={styles.viewLine}>
             <Text h5>{STRINGS.quantity}</Text>
             <Text h5>{quantity + ' шт'}</Text>
           </View>
@@ -36,3 +36,10 @@ export function CartListHeader() {
     </Card>
   );
 }
+
+const styles = StyleSheet.create({
+  viewLine: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+});

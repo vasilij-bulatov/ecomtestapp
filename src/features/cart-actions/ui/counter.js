@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import Counter from 'react-native-counters';
 import {useTheme} from '@rneui/themed';
 
@@ -15,12 +16,14 @@ export function CounterButton({start, onPlus, onMinus}) {
     }
   };
   return (
-    <Counter
-      start={start}
-      onChange={onChange}
-      buttonStyle={{borderColor: theme.colors.secondary}}
-      buttonTextStyle={{color: theme.colors.secondary}}
-      countTextStyle={{color: theme.colors.secondary}}
-    />
+    <View style={{backgroundColor: theme.colors.secondary, borderRadius: 5}}>
+      <Counter
+        start={start}
+        onChange={onChange}
+        buttonStyle={{borderColor: theme.colors.white}}
+        buttonTextStyle={{color: theme.colors.black}}
+        countTextStyle={{color: theme.colors.black}}
+      />
+    </View>
   );
 }

@@ -1,9 +1,8 @@
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {Card, Text, Image, Button, Chip, useTheme} from '@rneui/themed';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Card, Text, Image, Chip, useTheme} from '@rneui/themed';
+import {View, StyleSheet} from 'react-native';
 
-import {useCartActions, Counter} from '../../../features/cart-actions';
+import {Counter} from '../../../features/cart-actions';
 
 export function CartItem({product}) {
   const {theme} = useTheme();
@@ -12,18 +11,14 @@ export function CartItem({product}) {
     (product?.price / 100) * product.discountPercentage
   ).toFixed(2);
   const totalPrice = (discountPrice * product.quantity).toFixed(2);
+  console.log(product);
   return (
     <Card>
       <View style={styles.viewContainer}>
         <Image source={{uri: product.thumbnail}} style={styles.image} />
         <View style={{width: '70%'}}>
           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              width: '100%',
-            }}>
+            style={styles.viewTopLine}>
             <Text style={styles.textTitle} h4>
               {product?.title}
             </Text>
@@ -35,11 +30,7 @@ export function CartItem({product}) {
             </Chip>
           </View>
           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-            }}>
+            style={styles.viewMiddleLine}>
             <Text
               style={{
                 color: theme.colors.grey2,
@@ -53,14 +44,12 @@ export function CartItem({product}) {
             </Text>
           </View>
           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Counter product={product} start={product.quantity}/>
+            style={styles.viewBottomLine}>
+            <Counter product={product} start={product.quantity} />
             <View style={{justifyContent: 'flex-end'}}>
-              <Text h6 style={{textAlign: 'right'}}>Всего</Text>
+              <Text h6 style={{textAlign: 'right'}}>
+                Всего
+              </Text>
               <Text h4>{totalPrice + '$'}</Text>
             </View>
           </View>
@@ -73,21 +62,32 @@ export function CartItem({product}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //padding: 20,
-    //backgroundColor: 'red',
-    //justifyContent: 'center',
     alignItems: 'center',
   },
   viewContainer: {
     width: '100%',
-    //height: 70,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     margin: 2,
   },
+  viewTopLine: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  viewMiddleLine: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  viewBottomLine: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   image: {
-    //width: '100%',
     width: 70,
     height: 70,
   },

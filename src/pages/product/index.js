@@ -28,9 +28,10 @@ export function ProductScreen({route}) {
         title={capitalizeFirstLetter(product.category)}
       />
       <SafeAreaView style={styles.container}>
-        <ScrollView contentContainerStyle={{flex: 1}}>
+        <ScrollView style={{flex: 1}}>
           <ImagesCarousel images={product.images} />
           <ProductFullCard product={product} />
+          <View height={100}/>
         </ScrollView>
         <View style={styles.FAB}> 
           {showCounter ? (
@@ -50,10 +51,6 @@ export function ProductScreen({route}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //padding: 20,
-    //backgroundColor: 'red',
-    //justifyContent: 'center',
-    //alignItems: 'center',
   },
   viewContainer: {
     width: '100%',

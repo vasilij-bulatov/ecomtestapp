@@ -1,14 +1,13 @@
 import React from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FAB} from '@rneui/themed';
 
-
 import {Header} from '../../widgets/header';
-import { CartList } from '../../widgets/cart-list';
+import {CartList} from '../../widgets/cart-list';
 
-import { useCartState } from '../../entities/cart';
+import {useCartState} from '../../entities/cart';
 
 export function CartScreen() {
   const STRINGS = {
@@ -22,8 +21,17 @@ export function CartScreen() {
     <>
       <Header arrowBackEnable={true} title={STRINGS.title} />
       <SafeAreaView style={styles.container}>
-        <CartList products={products}/>
-        {!!total && <FAB style={styles.buttonAddToCart} title={STRINGS.goToPay} onPress={() => navigation.navigate('Payment')}/>}
+        <CartList products={products} />
+        <View>
+          {!!total && (
+            <FAB
+              containerStyle={styles.buttonAddToCart}
+              //style={styles.buttonAddToCart}
+              title={STRINGS.goToPay}
+              onPress={() => navigation.navigate('Payment')}
+            />
+          )}
+        </View>
       </SafeAreaView>
     </>
   );
@@ -41,6 +49,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   buttonAddToCart: {
+    marginTop: 8,
     marginBottom: 15,
+    width: '70%',
+    alignSelf: 'center',
   },
 });

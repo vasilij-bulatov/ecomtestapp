@@ -23,6 +23,8 @@ export function ProductCard({product}) {
     if (isFocused) {
       setQuantity(getProductQuantity(product));
       setCrutch(true);
+    } else {
+      setCrutch(false);
     }
   }, [isFocused]);
   

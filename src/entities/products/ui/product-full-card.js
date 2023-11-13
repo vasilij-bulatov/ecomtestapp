@@ -39,9 +39,6 @@ export function ProductFullCard({product}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //padding: 20,
-    //backgroundColor: 'red',
-    //justifyContent: 'center',
     alignItems: 'center',
   },
   viewContainer: {
